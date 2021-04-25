@@ -23,10 +23,10 @@ contract('JoniToken', function(accounts) {
             tokenInstance = instance;
             return tokenInstance.totalSupply();
         }).then(function(totalSupply) {
-            assert.equal(totalSupply.toNumber(), 1000000, 'sets the total supply to 1000000');
+            assert.equal(totalSupply.toNumber(), 100000000, 'sets the total supply to 100,000,000');
             return tokenInstance.balanceOf(accounts[0]);
         }).then(function(adminBalance) {
-            assert.equal(adminBalance.toNumber(), 1000000, 'it allocates initial supply to admin account')
+            assert.equal(adminBalance.toNumber(), 100000000, 'it allocates initial supply to admin account')
         });
     });
 
@@ -35,7 +35,6 @@ contract('JoniToken', function(accounts) {
             tokenInstance = instance;
             return tokenInstance.transfer.call(accounts[1], 9999999999999999999);
         }).then(assert.fail).catch(function(error) {
-            //console.log(error);
             assert(error.message.indexOf('overflow') >= 0, 'error reason must contain overflow');
             return tokenInstance.transfer.call(accounts[1], 250000, { from: accounts[0] });
         }).then(function(success) {
@@ -52,7 +51,7 @@ contract('JoniToken', function(accounts) {
             assert.equal(balance.toNumber(), 250000, 'adds amount to receiver account');
             return tokenInstance.balanceOf(accounts[0]);
         }).then(function(balance) {
-            assert.equal(balance.toNumber(), 750000, 'deducts amount of from sender account')
+            assert.equal(balance.toNumber(), 99750000, 'deducts amount of from sender account')
         });
     });
 
